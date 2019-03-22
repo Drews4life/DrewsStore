@@ -10,7 +10,7 @@ import UIKit
 
 class ApplicationsHeader: UICollectionReusableView {
     
-    private let headerHorizontalListController = ApplicationsHeaderHorizontalViewController(collectionViewLayout: UICollectionViewFlowLayout())
+    let headerHorizontalListController = ApplicationsHeaderHorizontalViewController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

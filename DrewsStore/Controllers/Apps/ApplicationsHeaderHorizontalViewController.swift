@@ -9,7 +9,13 @@
 import UIKit
 
 
-class ApplicationsHeaderHorizontalViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ApplicationsHeaderHorizontalViewController: HorizontalSnappingViewController, UICollectionViewDelegateFlowLayout {
+    
+    var headerResult: [HeaderResult] = [] {
+        didSet {
+            
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,15 +23,9 @@ class ApplicationsHeaderHorizontalViewController: UICollectionViewController, UI
         collectionView.backgroundColor = .white
         collectionView.register(ApplicationHeaderCell.self, forCellWithReuseIdentifier: APP_HEADER_CELL)
         
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - 40, height: view.frame.height)
     }
@@ -35,12 +35,13 @@ class ApplicationsHeaderHorizontalViewController: UICollectionViewController, UI
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return headerResult.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: APP_HEADER_CELL, for: indexPath) as? ApplicationHeaderCell else { return ApplicationHeaderCell() }
         
+        cell.result = headerResult[indexPath.item]
         
         return cell
     }

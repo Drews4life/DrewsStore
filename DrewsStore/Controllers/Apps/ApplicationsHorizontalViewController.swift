@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ApplicationsHorizontalViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ApplicationsHorizontalViewController: HorizontalSnappingViewController, UICollectionViewDelegateFlowLayout {
     
      var applicationGroup: ApplicationGroup?
     
@@ -17,10 +17,7 @@ class ApplicationsHorizontalViewController: UICollectionViewController, UICollec
         
         collectionView.backgroundColor = .white
         collectionView.register(ApplicationRowCell.self, forCellWithReuseIdentifier: IN_GROUP_APP_CELL)
-        
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
+        collectionView.contentInset = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -37,9 +34,6 @@ class ApplicationsHorizontalViewController: UICollectionViewController, UICollec
         return 10
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-    }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

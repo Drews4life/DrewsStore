@@ -47,11 +47,12 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
         timer?.invalidate()
         
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            APINetworking.shared.fetchItunesApps(searchTerm: searchText) { (results, error) in
+            APINetworking.shared.fetchItunesApps(searchTerm: searchText) { (searchResults, error) in
                 if let _ = error {
                     return
                 }
                 
+                guard let results = searchResults?.results else { return }
                 self.appResults = results
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()

@@ -12,6 +12,14 @@ class ApplicationsViewController: UICollectionViewController, UICollectionViewDe
 
     private var allGroups = [ApplicationGroup]()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .whiteLarge)
+        activity.color = .black
+        activity.startAnimating()
+        activity.hidesWhenStopped = true
+        return activity
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +27,10 @@ class ApplicationsViewController: UICollectionViewController, UICollectionViewDe
         collectionView.register(ApplicationsGroupCell.self, forCellWithReuseIdentifier: APP_GROUP_CELL)
         collectionView.register(ApplicationsHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: APP_HEADER_VIEW)
         
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXInSuperview()
+        activityIndicator.centerYInSuperview()
+    
         fetchData()
     }
     
@@ -60,18 +72,30 @@ class ApplicationsViewController: UICollectionViewController, UICollectionViewDe
         }
         
         dispatchGroup.notify(queue: .main) {
+            self.activityIndicator.stopAnimating()
             self.collectionView.reloadData()
         }
+    }
+    
+    private func getHeaderResourcesPlaceholder() -> [HeaderResult] {
+        let firstResult = HeaderResult(name: "InstaWorld", title: "Share photos and get friends!", image: #imageLiteral(resourceName: "imgGirl"))
+        let secondResult = HeaderResult(name: "SnapWorld", title: "Don't waste your life scrolling photos!", image: #imageLiteral(resourceName: "imgGirl2"))
+        let thirdResult = HeaderResult(name: "CuriousWorld", title: "Find new friends!", image: #imageLiteral(resourceName: "imgGirl3"))
+        
+        return [firstResult, secondResult, thirdResult]
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: APP_HEADER_VIEW, for: indexPath) as? ApplicationsHeader else { return ApplicationsHeader() }
         
+        header.headerHorizontalListController.headerResult = getHeaderResourcesPlaceholder()
+        header.headerHorizontalListController.collectionView.reloadData()
+        
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 250)
+        return CGSize(width: view.frame.width, height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

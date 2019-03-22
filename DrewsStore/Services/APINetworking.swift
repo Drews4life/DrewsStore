@@ -11,46 +11,27 @@ import Foundation
 class APINetworking {
     static let shared = APINetworking()
     
-    func fetchItunesApps(searchTerm: String, completion: @escaping ([Result], Error?) -> Void) {
+    func fetchItunesApps(searchTerm: String, completion: @escaping (SearchResult?, Error?) -> Void) {
         let urlString = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let err = error {
-                debugPrint("Could not fetch apps: \(err.localizedDescription)")
-                completion([], err)
-                return
-            }
-            
-            if let data = data {
-                do {
-                    let searchResult = try JSONDecoder().decode(SearchResult.self, from: data)
-                    completion(searchResult.results, nil)
-                } catch let err {
-                    debugPrint("Could not decode search results: \(err.localizedDescription)")
-                    completion([], err)
-                }
-            }
-            
-            }.resume()
+        fetchJSONData(urlString: urlString, completion: completion)
     }
     
     func fetchGames(completion: @escaping (ApplicationGroup?, Error?) -> Void) {
         let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/25/explicit.json"
-        fetchAppGroup(urlString: urlString, completion: completion)
+        fetchJSONData(urlString: urlString, completion: completion)
     }
     
     func fetchNewGames(completion: @escaping (ApplicationGroup?, Error?) -> Void) {
         let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-apps-we-love/all/25/explicit.json"
-        fetchAppGroup(urlString: urlString, completion: completion)
+        fetchJSONData(urlString: urlString, completion: completion)
     }
     
     func fetchTopPaid(completion: @escaping (ApplicationGroup?, Error?) -> Void) {
         let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-paid/all/25/explicit.json"
-        fetchAppGroup(urlString: urlString, completion: completion)
+        fetchJSONData(urlString: urlString, completion: completion)
     }
     
-    func fetchAppGroup(urlString: String, completion: @escaping (ApplicationGroup?, Error?) -> Void) {
+    func fetchJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -62,7 +43,7 @@ class APINetworking {
             
             if let data = data {
                 do {
-                    let appGroup = try JSONDecoder().decode(ApplicationGroup.self, from: data)
+                    let appGroup = try JSONDecoder().decode(T.self, from: data)
                     completion(appGroup, nil)
                 } catch let err {
                     completion(nil, err)

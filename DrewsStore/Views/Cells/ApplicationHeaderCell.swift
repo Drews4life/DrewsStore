@@ -10,6 +10,15 @@ import UIKit
 
 class ApplicationHeaderCell: UICollectionViewCell {
     
+    var result: HeaderResult? {
+        didSet {
+            guard let result = result else { return }
+            companyLbl.text = result.name
+            titleLbl.text = result.title
+            frontImageView.image = result.image
+        }
+    }
+    
     private let companyLbl: UILabel = {
         let lbl = UILabel(text: "Company", font: .boldSystemFont(ofSize: 12))
         lbl.textColor = #colorLiteral(red: 0.3266413212, green: 0.4215201139, blue: 0.7752227187, alpha: 1)
@@ -18,14 +27,17 @@ class ApplicationHeaderCell: UICollectionViewCell {
     }()
     
     private let titleLbl: UILabel = {
-        let lbl = UILabel(text: "Placeholder title, life is great!", font: .systemFont(ofSize: 19))
-        lbl.numberOfLines = 3
+        let lbl = UILabel(text: "Placeholder title, life is great!", font: .systemFont(ofSize: 18))
+//        lbl.numberOfLines = 1
+        lbl.minimumScaleFactor = 12
         
         return lbl
     }()
     
     private let frontImageView: UIImageView = {
         let img = UIImageView(cornerRadius: 8)
+//        img.constrainWidth(constant: 64)
+//        img.constrainHeight(constant: 200)
         
         return img
     }()

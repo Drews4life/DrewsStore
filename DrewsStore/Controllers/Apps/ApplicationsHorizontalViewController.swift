@@ -10,7 +10,8 @@ import UIKit
 
 class ApplicationsHorizontalViewController: HorizontalSnappingViewController, UICollectionViewDelegateFlowLayout {
     
-     var applicationGroup: ApplicationGroup?
+    var applicationGroup: ApplicationGroup?
+    var didSelectHandler: ((_ chosenApp: FeedResult) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,12 @@ class ApplicationsHorizontalViewController: HorizontalSnappingViewController, UI
         let height = (view.frame.height - topAndBottomPaddings - lineSpacings) / 3
         
         return CGSize(width: view.frame.width - 48, height: height)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let application = applicationGroup?.feed.results[indexPath.item] else { return }
+        
+        didSelectHandler?(application)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

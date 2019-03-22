@@ -122,6 +122,13 @@ class ApplicationsViewController: UICollectionViewController, UICollectionViewDe
         cell.horizontalListController.applicationGroup = groupForCell
         cell.horizontalListController.collectionView.reloadData()
         
+        cell.horizontalListController.didSelectHandler = { [weak self] chosenApplication in
+            let applicationDetailsVC = ApplicationDetailViewController(collectionViewLayout: UICollectionViewFlowLayout())
+            applicationDetailsVC.applicationId = chosenApplication.id
+            
+            self?.navigationController?.pushViewController(applicationDetailsVC, animated: true)
+        }
+        
         return cell
     }
 }

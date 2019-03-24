@@ -10,6 +10,22 @@ import UIKit
 
 class ApplicationDetailCell: UICollectionViewCell {
     
+    var application: Result? {
+        didSet {
+            guard let application = application else { return }
+            guard let iconUrl = URL(string: application.artworkUrl100) else { return }
+            
+            applicationIconImageView.sd_setImage(with: iconUrl)
+            nameLbl.text = application.trackName
+            releaseNotesLbl.text = application.releaseNotes
+            //latestUpdatesLbl.text = application.
+            
+            if let price = application.formattedPrice {
+                priceButton.setTitle(price, for: .normal)
+            }
+        }
+    }
+    
     private let applicationIconImageView: UIImageView = {
         let img = UIImageView(cornerRadius: 12)
         img.constrainWidth(constant: 140)
@@ -19,7 +35,7 @@ class ApplicationDetailCell: UICollectionViewCell {
     }()
     
     private let nameLbl: UILabel = {
-        let lbl = UILabel(text: "App name", font: .boldSystemFont(ofSize: 15))
+        let lbl = UILabel(text: "App name", font: .boldSystemFont(ofSize: 18))
         lbl.numberOfLines = 2
         
         return lbl
@@ -28,7 +44,7 @@ class ApplicationDetailCell: UICollectionViewCell {
     private let priceButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("0.99$", for: .normal)
-        btn.backgroundColor = #colorLiteral(red: 0.3266413212, green: 0.4215201139, blue: 0.7752227187, alpha: 1)
+        btn.backgroundColor = #colorLiteral(red: 0.08411604911, green: 0.4194744825, blue: 0.9397012591, alpha: 1)
         btn.constrainHeight(constant: 32)
         btn.constrainWidth(constant: 80)
         btn.layer.cornerRadius = 32 / 2

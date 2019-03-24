@@ -63,6 +63,16 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
     
     }
     
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let result = appResults[indexPath.item]
+        
+        let applicationDetailViewController = ApplicationDetailViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        applicationDetailViewController.applicationId = String(result.trackId)
+        
+        navigationController?.pushViewController(applicationDetailViewController, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 350)
     }

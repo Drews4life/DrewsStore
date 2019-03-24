@@ -11,11 +11,7 @@ import UIKit
 
 class ApplicationsHeaderHorizontalViewController: HorizontalSnappingViewController, UICollectionViewDelegateFlowLayout {
     
-    var headerResult: [HeaderResult] = [] {
-        didSet {
-            
-        }
-    }
+    var headerResult = [HeaderResult]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

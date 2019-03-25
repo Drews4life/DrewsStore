@@ -16,13 +16,13 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        let todayVC = instantiateNavController(withVC: UIViewController(), withImage: #imageLiteral(resourceName: "today_icon"), withTitle: "Today")
+        let todayVC = instantiateNavController(withVC: TodayViewController(collectionViewLayout: UICollectionViewFlowLayout()), withImage: #imageLiteral(resourceName: "today_icon"), withTitle: "Today")
         let appsVC = instantiateNavController(withVC: ApplicationsViewController(collectionViewLayout: UICollectionViewFlowLayout()), withImage: #imageLiteral(resourceName: "apps"), withTitle: "Apps")
         let searchVC = instantiateNavController(withVC: SearchViewController(collectionViewLayout: UICollectionViewFlowLayout()), withImage: #imageLiteral(resourceName: "search"), withTitle: "Search")
         
         viewControllers = [
-            appsVC,
             todayVC,
+            appsVC,
             searchVC
         ]
     }

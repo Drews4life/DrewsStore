@@ -18,6 +18,11 @@ class ApplicationFullscreenViewController: UITableViewController {
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.contentInsetAdjustmentBehavior = .never
+        
+        let height = UIApplication.shared.statusBarFrame.height
+        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
     }
     
     @objc private func dismissView(button: UIButton) {
@@ -33,6 +38,7 @@ class ApplicationFullscreenViewController: UITableViewController {
         if indexPath.row == 0 {
             let cell = ApplicationFullscreenHeaderCell()
             cell.todayCell.todayItem = todayItem
+            cell.todayCell.layer.cornerRadius = 0
             cell.closeBtn.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
             
             return cell

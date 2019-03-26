@@ -12,7 +12,7 @@ class ApplicationFullscreenDescriptionCell: UITableViewCell {
     
     let descriptionLbl: UILabel = {
         let lbl = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Some really astonishing games!", attributes: [
+        let attributedText = NSMutableAttributedString(string: "\nSome really astonishing games!", attributes: [
             .foregroundColor: UIColor.black
         ])
         attributedText.append(NSAttributedString(string: "  We know that you want to play this game already, huh?", attributes: [.foregroundColor: UIColor.gray]))

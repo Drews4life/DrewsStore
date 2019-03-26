@@ -18,16 +18,18 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
     var heightConstraint: NSLayoutConstraint?
     
     private let items = [
-        TodayItem(category: "SHARE YOUR THOUGHTS", title: "CHASE YOUR DREAMS", description: "All you need to accomplish your dream is chasing it. You will never be happy without a dream", image: #imageLiteral(resourceName: "garden"), backgroundColor: .white),
-        TodayItem(category: "GIVE IT A TRY", title: "NEW MMORPG OUT", description: "Accept a challenge to fight most powerfull heroes of the past in our new game!", image: #imageLiteral(resourceName: "holiday"), backgroundColor: #colorLiteral(red: 0.9893129468, green: 0.9681989551, blue: 0.7294917703, alpha: 1))
+        TodayItem(category: "SHARE YOUR THOUGHTS", title: "CHASE YOUR DREAMS", description: "All you need to accomplish your dream is chasing it. You will never be happy without a dream", image: #imageLiteral(resourceName: "garden"), backgroundColor: .white, cellType: .single),
+        TodayItem(category: "WEEKLY LIST", title: "LOOK FORWARD TO NEW APPS", description: "", image: #imageLiteral(resourceName: "garden"), backgroundColor: .white, cellType: .multiple),
+        TodayItem(category: "GIVE IT A TRY", title: "NEW MMORPG OUT", description: "Accept a challenge to fight most powerfull heroes of the past in our new game!", image: #imageLiteral(resourceName: "holiday"), backgroundColor: #colorLiteral(red: 0.9893129468, green: 0.9681989551, blue: 0.7294917703, alpha: 1), cellType: .single),
+        TodayItem(category: "MONTHLY LIST", title: "CHECK THIS OUT", description: "", image: #imageLiteral(resourceName: "garden"), backgroundColor: .white, cellType: .multiple)
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.backgroundColor = #colorLiteral(red: 0.9569426179, green: 0.94890064, blue: 0.9569777846, alpha: 1)
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TODAY_CELL)
-//        collectionView.contentInset =
+        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+        collectionView.register(TodayMultipleApplicationCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
         
         navigationController?.isNavigationBarHidden = true
     }
@@ -59,6 +61,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         
         addChild(applicationFullscreenVC)
         self.applicationFullScreenController = applicationFullscreenVC
+        self.collectionView.isUserInteractionEnabled = false
         
         guard let cell = collectionView.cellForItem(at: indexPath) as? TodayCell else { return }
         guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
@@ -83,7 +86,11 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
             self.view.layoutIfNeeded()
             
             self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
-
+           
+            guard let cell = self.applicationFullScreenController.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ApplicationFullscreenHeaderCell else { return }
+            cell.todayCell.topConstraint.constant = 48
+            cell.layoutIfNeeded()
+            
         }, completion: nil)
     }
     
@@ -103,9 +110,14 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
             }
             self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 0)
             
+            guard let cell = self.applicationFullScreenController.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ApplicationFullscreenHeaderCell else { return }
+            cell.todayCell.topConstraint.constant = 24
+            cell.layoutIfNeeded()
+            
         }) { _ in
             self.applicationFullScreenController.view?.removeFromSuperview()
             self.applicationFullScreenController.removeFromParent()
+            self.collectionView.isUserInteractionEnabled = true
         }
     }
     
@@ -114,9 +126,12 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TODAY_CELL, for: indexPath) as? TodayCell else { return TodayCell() }
         
-        cell.todayItem = items[indexPath.row]
+        let item = items[indexPath.row]
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.cellType.rawValue, for: indexPath) as? BaseTodayCell else { return UICollectionViewCell() }
+        
+        cell.todayItem = item
         
         return cell
     }

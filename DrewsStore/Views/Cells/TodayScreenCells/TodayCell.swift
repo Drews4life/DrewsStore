@@ -8,14 +8,14 @@
 
 import UIKit
 
-class TodayCell: UICollectionViewCell {
+class TodayCell: BaseTodayCell {
     
-    var todayItem: TodayItem? {
+    override var todayItem: TodayItem? {
         didSet {
             guard let item = todayItem else { return }
             
             imageView.image = item.image
-            //backgroundColor = item.backgroundColor
+            backgroundColor = item.backgroundColor
             categoryLbl.text = item.category
             titleLbl.text = item.title
             descriptionLbl.text = item.description
@@ -49,6 +49,8 @@ class TodayCell: UICollectionViewCell {
         return lbl
     }()
     
+    var topConstraint: NSLayoutConstraint!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -68,7 +70,11 @@ class TodayCell: UICollectionViewCell {
         ], spacing: 8)
         
         addSubview(titlesStack)
-        titlesStack.fillSuperview(padding: UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24))
+        
+        titlesStack.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24))
+        
+        self.topConstraint = titlesStack.topAnchor.constraint(equalTo: topAnchor, constant: 24)
+        self.topConstraint.isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

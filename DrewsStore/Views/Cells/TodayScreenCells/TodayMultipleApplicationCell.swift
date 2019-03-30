@@ -17,6 +17,8 @@ class TodayMultipleApplicationCell: BaseTodayCell {
             categoryLbl.text = item.category
             titleLbl.text = item.title
             backgroundColor = item.backgroundColor
+            
+            applicationCollectionController.results = item.applications
         }
     }
     
@@ -33,7 +35,7 @@ class TodayMultipleApplicationCell: BaseTodayCell {
         return lbl
     }()
     
-    let applicationCollectionController = TodayMultipleApplicationsController(collectionViewLayout: UICollectionViewFlowLayout())
+    let applicationCollectionController = TodayMultipleApplicationsController(mode: .small)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

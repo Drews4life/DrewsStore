@@ -39,7 +39,7 @@ class ApplicationsViewController: UICollectionViewController, UICollectionViewDe
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
-        APINetworking.shared.fetchGames { (applicationGroup, error) in
+        APINetworking.shared.fetchNewGames { (applicationGroup, error) in
             dispatchGroup.leave()
             if let _ = error {
                 return

@@ -16,6 +16,7 @@ class TodayCell: BaseTodayCell {
             
             imageView.image = item.image
             backgroundColor = item.backgroundColor
+            backgroundView?.backgroundColor = item.backgroundColor
             categoryLbl.text = item.category
             titleLbl.text = item.title
             descriptionLbl.text = item.description
@@ -25,7 +26,7 @@ class TodayCell: BaseTodayCell {
     private let imageView: UIImageView = {
         let img = UIImageView(image: #imageLiteral(resourceName: "garden"))
         img.contentMode = .scaleAspectFill
-        //img.clipsToBounds = true
+        img.clipsToBounds = true
         
         return img
     }()
@@ -54,7 +55,7 @@ class TodayCell: BaseTodayCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        clipsToBounds = true
+//        clipsToBounds = true
         backgroundColor = .white
         layer.cornerRadius = 18
         

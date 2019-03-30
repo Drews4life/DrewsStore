@@ -8,13 +8,49 @@
 
 import UIKit
 
-class ApplicationFullscreenViewController: UITableViewController {
+class ApplicationFullscreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var didDismiss: (() -> ())?
     var todayItem: TodayItem?
     
+    let smallPreviewView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.layer.cornerRadius = 12
+        
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        view.addSubview(blur)
+        view.clipsToBounds = true
+        blur.fillSuperview()
+        
+        return view
+    }()
+    
+    var isPreviewHidden = true
+    
+    let tableView = UITableView(frame: .zero, style: .plain)
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0 {
+            scrollView.isScrollEnabled = false
+            scrollView.isScrollEnabled = true
+        }
+        
+        if scrollView.contentOffset.y >= 160 && isPreviewHidden {
+            animatePreview()
+        } else if scrollView.contentOffset.y < 160 && !isPreviewHidden {
+            animatePreview(hide: true)
+        }
+        print(scrollView.contentOffset.y)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(tableView)
+        tableView.fillSuperview()
+        tableView.dataSource = self
+        tableView.delegate = self
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
@@ -23,6 +59,65 @@ class ApplicationFullscreenViewController: UITableViewController {
         let height = UIApplication.shared.statusBarFrame.height
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+        
+        setupPreviewView()
+    }
+    
+    private func setupPreviewView() {
+        view.addSubview(smallPreviewView)
+        
+        let bottomPadding = UIApplication.shared.statusBarFrame.height
+        
+        smallPreviewView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 16, bottom: bottomPadding, right: 16), size: CGSize(width: 0, height: 85))
+        self.smallPreviewView.transform = CGAffineTransform(translationX: 0, y: 120)
+        
+        let imageView = UIImageView(cornerRadius: 16)
+        imageView.image = todayItem?.image
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.constrainWidth(constant: 60)
+        imageView.constrainHeight(constant: 60)
+        
+        let titleLbl = UILabel(text: todayItem?.title ?? "", font: .boldSystemFont(ofSize: 12))
+        let categoryLbl = UILabel(text: todayItem?.category ?? "", font: .systemFont(ofSize: 11))
+        let getBtn = UIButton(type: .system)
+        getBtn.setTitle("GET", for: .normal)
+        getBtn.setTitleColor(.white, for: .normal)
+        getBtn.backgroundColor = .darkGray
+        getBtn.layer.cornerRadius = 12
+        getBtn.constrainWidth(constant: 80)
+        getBtn.constrainHeight(constant: 32)
+        
+        let titlesSubstack = VerticalStackView(arrangedSubviews: [
+            titleLbl,
+            categoryLbl
+        ], spacing: 5)
+        titlesSubstack.alignment = .center
+        titlesSubstack.distribution = .fillEqually
+        
+        let stackView = UIStackView(arrangedSubviews: [
+            imageView,
+            VerticalStackView(arrangedSubviews: [
+                titleLbl,
+                categoryLbl
+                ], spacing: 5),
+            getBtn
+            ])
+        stackView.spacing = 16
+        
+        smallPreviewView.addSubview(stackView)
+        stackView.fillSuperview(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        stackView.alignment = .center
+        
+        smallPreviewView.alpha = 1
+    }
+    
+    private func animatePreview(hide: Bool = false) {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            self.smallPreviewView.transform = hide ? CGAffineTransform(translationX: 0, y: 120) : .identity
+        }, completion: { _ in
+            self.isPreviewHidden = hide
+        })
     }
     
     @objc private func dismissView(button: UIButton) {
@@ -30,11 +125,11 @@ class ApplicationFullscreenViewController: UITableViewController {
         didDismiss?()
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = ApplicationFullscreenHeaderCell()
             cell.todayCell.todayItem = todayItem
@@ -49,11 +144,11 @@ class ApplicationFullscreenViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 450
         }
         
-        return super.tableView(tableView, heightForRowAt: indexPath)
+        return UITableView.automaticDimension
     }
 }

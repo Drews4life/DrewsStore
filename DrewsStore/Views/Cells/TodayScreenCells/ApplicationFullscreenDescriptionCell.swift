@@ -23,6 +23,14 @@ class ApplicationFullscreenDescriptionCell: UITableViewCell {
         attributedText.append(NSAttributedString(string: "\n\nJust a placeholder!", attributes: [.foregroundColor: UIColor.black]))
         attributedText.append(NSAttributedString(string: "  You really should not take things in life too seriously, sometimes the only thing you need in life is just a lemon", attributes: [.foregroundColor: UIColor.gray]))
         
+        attributedText.append(NSAttributedString(string: "\n\nIt also takes a bit of a time here", attributes: [.foregroundColor: UIColor.black]))
+        
+        attributedText.append(NSAttributedString(string: "  Either way it could not be possible, huh? I guess you find it someway creepy? But I dont think so. Anyways, do not waste your time going through a bunch of generic test I have on my mind, just because it makes no sense", attributes: [.foregroundColor: UIColor.gray]))
+        
+        attributedText.append(NSAttributedString(string: "\n\nHowever-However-However", attributes: [.foregroundColor: UIColor.black]))
+        
+        attributedText.append(NSAttributedString(string: "  Even though it makes no sense I feel a little bit happier while writing this, so thank you for going this far, unless you just scrolled to the end and reading this part without a single understanding of whats going on there.:)", attributes: [.foregroundColor: UIColor.gray]))
+        
         lbl.attributedText = attributedText
         lbl.numberOfLines = 0
         

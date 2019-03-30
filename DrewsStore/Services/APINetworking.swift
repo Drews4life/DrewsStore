@@ -16,17 +16,17 @@ class APINetworking {
         fetchJSONData(urlString: urlString, completion: completion)
     }
     
-    func fetchGames(completion: @escaping (ApplicationGroup?, Error?) -> Void) {
-        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/25/explicit.json"
-        fetchJSONData(urlString: urlString, completion: completion)
-    }
-    
     func fetchNewGames(completion: @escaping (ApplicationGroup?, Error?) -> Void) {
         let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-apps-we-love/all/25/explicit.json"
         fetchJSONData(urlString: urlString, completion: completion)
     }
-    
+
     func fetchTopPaid(completion: @escaping (ApplicationGroup?, Error?) -> Void) {
+        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-paid/all/25/explicit.json"
+        fetchJSONData(urlString: urlString, completion: completion)
+    }
+    
+    func fetchTopGrossing(completion: @escaping (ApplicationGroup?, Error?) -> Void) {
         let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-paid/all/25/explicit.json"
         fetchJSONData(urlString: urlString, completion: completion)
     }

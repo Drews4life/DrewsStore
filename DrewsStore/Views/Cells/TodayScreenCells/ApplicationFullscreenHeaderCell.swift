@@ -23,6 +23,7 @@ class ApplicationFullscreenHeaderCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubview(todayCell)
+        todayCell.backgroundView?.layer.shadowOpacity = 0
         todayCell.fillSuperview()
         
         addSubview(closeBtn)

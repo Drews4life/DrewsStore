@@ -26,26 +26,26 @@ class ApplicationSingleReviewCell: UICollectionViewCell {
         }
     }
     
-    private let titleLbl: UILabel = {
+    fileprivate let titleLbl: UILabel = {
         let lbl = UILabel(text: "Review title", font: .boldSystemFont(ofSize: 17))
         
         return lbl
     }()
     
-    private let nameLbl: UILabel = {
+    fileprivate let nameLbl: UILabel = {
         let lbl = UILabel(text: "Name", font: .systemFont(ofSize: 14))
         
         return lbl
     }()
 
-    private let bodyReviewLbl: UILabel = {
+    fileprivate let bodyReviewLbl: UILabel = {
         let lbl = UILabel(text: "Body\nBody\nBody\n", font: .systemFont(ofSize: 18))
         lbl.numberOfLines = 4
         
         return lbl
     }()
     
-    private let ratingStarsStackView: UIStackView = {
+    fileprivate let ratingStarsStackView: UIStackView = {
         var arrangedSubviews = [UIView]()
         
         (0..<5).forEach({ _ in

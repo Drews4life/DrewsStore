@@ -30,13 +30,13 @@ class ApplicationPreviewViewController: HorizontalSnappingViewController, UIColl
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return application?.screenshotUrls.count ?? 0
+        return application?.screenshotUrls?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: APP_SCREENSHOT_CELL, for: indexPath) as? PreviewScreenshotCell else { return PreviewScreenshotCell() }
         
-        if let urlString = application?.screenshotUrls[indexPath.item] {
+        if let urlString = application?.screenshotUrls?[indexPath.item] {
             if let url = URL(string: urlString) {
                 cell.screenImageView.sd_setImage(with: url)
             }

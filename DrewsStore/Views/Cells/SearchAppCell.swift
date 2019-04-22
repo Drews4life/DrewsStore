@@ -13,20 +13,21 @@ class SearchAppCell: UICollectionViewCell {
     var result: Result? {
         didSet {
             guard let result = result else { return }
+            guard let screenshots = result.screenshotUrls else { return }
             
             self.nameLbl.text = result.trackName
             self.categoryLbl.text = result.primaryGenreName
             self.ratingsLbl.text = "Rating: \(result.averageUserRating ?? 0)"
             
             self.appImageView.sd_setImage(with: URL(string: result.artworkUrl100), completed: nil)
-            self.screenshotFirstImageView.sd_setImage(with: URL(string: result.screenshotUrls[0]))
+            self.screenshotFirstImageView.sd_setImage(with: URL(string: screenshots[0]))
             
-            if result.screenshotUrls.count > 1 {
-                self.screenshotSecondImageView.sd_setImage(with: URL(string: result.screenshotUrls[1]))
+            if screenshots.count > 1 {
+                self.screenshotSecondImageView.sd_setImage(with: URL(string: screenshots[1]))
             }
             
-            if result.screenshotUrls.count > 2 {
-                self.screenshotThirdImageView.sd_setImage(with: URL(string: result.screenshotUrls[2]))
+            if screenshots.count > 2 {
+                self.screenshotThirdImageView.sd_setImage(with: URL(string: screenshots[2]))
             }
         }
     }
@@ -71,7 +72,7 @@ class SearchAppCell: UICollectionViewCell {
     lazy var screenshotSecondImageView = self.createScreenshotImageViews()
     lazy var screenshotThirdImageView = self.createScreenshotImageViews()
     
-    private func createScreenshotImageViews() -> UIImageView {
+    fileprivate func createScreenshotImageViews() -> UIImageView {
         let img = UIImageView()
         img.backgroundColor = .lightGray
         img.layer.cornerRadius = 8

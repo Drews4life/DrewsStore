@@ -10,9 +10,9 @@ import UIKit
 
 class ApplicationsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    private var allGroups = [ApplicationGroup]()
+    fileprivate var allGroups = [ApplicationGroup]()
     
-    private let activityIndicator: UIActivityIndicatorView = {
+    fileprivate let activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .whiteLarge)
         activity.color = .black
         activity.startAnimating()
@@ -34,7 +34,7 @@ class ApplicationsViewController: UICollectionViewController, UICollectionViewDe
         fetchData()
     }
     
-    private func fetchData() {
+    fileprivate func fetchData() {
         
         let dispatchGroup = DispatchGroup()
         
@@ -77,7 +77,7 @@ class ApplicationsViewController: UICollectionViewController, UICollectionViewDe
         }
     }
     
-    private func getHeaderResourcesPlaceholder() -> [HeaderResult] {
+    fileprivate func getHeaderResourcesPlaceholder() -> [HeaderResult] {
         let firstResult = HeaderResult(name: "InstaWorld", title: "Share photos and get friends!", image: #imageLiteral(resourceName: "imgGirl"))
         let secondResult = HeaderResult(name: "SnapWorld", title: "Don't waste your life scrolling photos!", image: #imageLiteral(resourceName: "imgGirl2"))
         let thirdResult = HeaderResult(name: "CuriousWorld", title: "Find new friends!", image: #imageLiteral(resourceName: "imgGirl3"))

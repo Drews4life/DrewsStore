@@ -18,7 +18,7 @@ class MultipleApplicationCell: UICollectionViewCell {
         }
     }
     
-    private let appIconImageView: UIImageView = {
+    fileprivate let appIconImageView: UIImageView = {
         let img = UIImageView(cornerRadius: 12)
         img.constrainWidth(constant: 64)
         img.constrainHeight(constant: 64)
@@ -26,19 +26,19 @@ class MultipleApplicationCell: UICollectionViewCell {
         return img
     }()
     
-    private let appNameLbl: UILabel = {
+    fileprivate let appNameLbl: UILabel = {
         let lbl = UILabel(text: "App name", font: .boldSystemFont(ofSize: 14))
         
         return lbl
     }()
     
-    private let companyNameLbl: UILabel = {
+    fileprivate let companyNameLbl: UILabel = {
         let lbl = UILabel(text: "Company name", font: .systemFont(ofSize: 11))
         
         return lbl
     }()
     
-    private let getAppBtn: UIButton = {
+    fileprivate let getAppBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("GET", for: .normal)
         btn.titleLabel?.font = .boldSystemFont(ofSize: 15)
@@ -50,7 +50,7 @@ class MultipleApplicationCell: UICollectionViewCell {
         return btn
     }()
     
-    private let separator: UIView = {
+    fileprivate let separator: UIView = {
         let separator = UIView()
         separator.backgroundColor = UIColor(white: 0, alpha: 0.3)
 //        separat

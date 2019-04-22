@@ -11,11 +11,11 @@ import SDWebImage
 
 class SearchViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
-    private var appResults = [Result]()
-    private var timer: Timer?
-    private let searchBarController = UISearchController(searchResultsController: nil)
+    fileprivate var appResults = [Result]()
+    fileprivate var timer: Timer?
+    fileprivate let searchBarController = UISearchController(searchResultsController: nil)
     
-    private let enterSearchTermLbl: UILabel = {
+    fileprivate let enterSearchTermLbl: UILabel = {
         let lbl = UILabel(text: "Search for an app!", font: .boldSystemFont(ofSize: 18))
         lbl.textAlignment = .center
         lbl.textColor = .darkGray
@@ -35,7 +35,7 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
         setupSearchBar()
     }
     
-    private func setupSearchBar () {
+    fileprivate func setupSearchBar () {
         definesPresentationContext = true
         navigationItem.searchController = searchBarController
         navigationItem.hidesSearchBarWhenScrolling = false

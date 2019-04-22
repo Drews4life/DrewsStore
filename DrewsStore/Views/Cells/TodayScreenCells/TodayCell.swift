@@ -23,7 +23,7 @@ class TodayCell: BaseTodayCell {
         }
     }
     
-    private let imageView: UIImageView = {
+    fileprivate let imageView: UIImageView = {
         let img = UIImageView(image: #imageLiteral(resourceName: "garden"))
         img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
@@ -31,19 +31,19 @@ class TodayCell: BaseTodayCell {
         return img
     }()
     
-    private let categoryLbl: UILabel = {
+    fileprivate let categoryLbl: UILabel = {
         let lbl = UILabel(text: "", font: .boldSystemFont(ofSize: 15))
         
         return lbl
     }()
     
-    private let titleLbl: UILabel = {
+    fileprivate let titleLbl: UILabel = {
         let lbl = UILabel(text: "", font: .boldSystemFont(ofSize: 22))
         
         return lbl
     }()
     
-    private let descriptionLbl: UILabel = {
+    fileprivate let descriptionLbl: UILabel = {
         let lbl = UILabel(text: "", font: .systemFont(ofSize: 13))
         lbl.numberOfLines = 3
         

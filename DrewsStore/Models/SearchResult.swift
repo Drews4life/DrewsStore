@@ -18,10 +18,12 @@ struct Result: Decodable {
     let trackName: String
     let primaryGenreName: String
     let artworkUrl100: String //appicon
-    let description: String
-    let screenshotUrls: [String]
     
+    let description: String?
+    let screenshotUrls: [String]?
     var averageUserRating: Float?
+    var artistName: String?
+    var collectionName: String?
     var formattedPrice: String?
     var releaseNotes: String?
 }

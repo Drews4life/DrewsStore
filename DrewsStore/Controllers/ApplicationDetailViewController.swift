@@ -44,8 +44,8 @@ class ApplicationDetailViewController: UICollectionViewController, UICollectionV
         }
     }
     
-    var application: Result?
-    var reviews: Reviews?
+    fileprivate var application: Result?
+    fileprivate var reviews: Reviews?
     
     override func viewDidLoad() {
         super.viewDidLoad()

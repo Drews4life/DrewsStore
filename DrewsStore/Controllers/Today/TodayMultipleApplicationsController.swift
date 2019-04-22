@@ -16,9 +16,9 @@ class TodayMultipleApplicationsController: UICollectionViewController, UICollect
     }
     
     var results = [FeedResult]()
-    private let mode: Mode!
+    fileprivate let mode: Mode!
     
-    private let closeBtn: UIButton = {
+    fileprivate let closeBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(#imageLiteral(resourceName: "close_button"), for: .normal)
         btn.tintColor = .darkGray
@@ -51,13 +51,13 @@ class TodayMultipleApplicationsController: UICollectionViewController, UICollect
         }
     }
     
-    private func setCloseBtn() {
+    fileprivate func setCloseBtn() {
         view.addSubview(closeBtn)
         closeBtn.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 8), size: CGSize(width: 44, height: 44))
     }
     
     
-    @objc private func closeView() {
+    @objc fileprivate func closeView() {
         dismiss(animated: true, completion: nil)
     }
     

@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+//https://rss.itunes.apple.com/search?term=ArianaGrande&offset=\()&limit=25
+
 class APINetworking {
     static let shared = APINetworking()
     
@@ -31,12 +34,18 @@ class APINetworking {
         fetchJSONData(urlString: urlString, completion: completion)
     }
     
+    func fetchMusicPaginated(page: Int, completion: @escaping (SearchResult?, Error?) -> Void) {
+        let urlString = "https://itunes.apple.com/search?term=ArianaGrande&offset=\(page * 20)&limit=20"
+        
+        fetchJSONData(urlString: urlString, completion: completion)
+    }
+    
     func fetchJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let err = error {
-                debugPrint("Error while fetching games: \(err.localizedDescription)")
+                debugPrint("Error while fetching data: \(err)")
                 completion(nil, err)
                 return
             }
@@ -47,7 +56,7 @@ class APINetworking {
                     completion(appGroup, nil)
                 } catch let err {
                     completion(nil, err)
-                    debugPrint("Could not decode games: \(err.localizedDescription)")
+                    debugPrint("Could not decode data: \(err)")
                 }
             }
         }.resume()

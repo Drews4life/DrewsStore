@@ -22,13 +22,13 @@ class TodayMultipleApplicationCell: BaseTodayCell {
         }
     }
     
-    private let categoryLbl: UILabel = {
+    fileprivate let categoryLbl: UILabel = {
         let lbl = UILabel(text: "", font: .boldSystemFont(ofSize: 18))
         
         return lbl
     }()
     
-    private let titleLbl: UILabel = {
+    fileprivate let titleLbl: UILabel = {
         let lbl = UILabel(text: "", font: .boldSystemFont(ofSize: 22))
         lbl.numberOfLines = 3
         

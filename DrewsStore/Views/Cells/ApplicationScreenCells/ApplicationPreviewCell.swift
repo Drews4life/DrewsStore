@@ -12,7 +12,7 @@ class ApplicationPreviewCell: UICollectionViewCell {
     
     let horizontalPreviewController = ApplicationPreviewViewController()
     
-    private let previewLbl: UILabel = {
+    fileprivate let previewLbl: UILabel = {
         let lbl = UILabel(text: "Preview", font: .boldSystemFont(ofSize: 22))
         
         return lbl

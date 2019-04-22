@@ -13,7 +13,7 @@ class ApplicationReviewRowCell: UICollectionViewCell {
     
     let reviewsHorizontalViewController = ApplicationReviewsViewController()
     
-    private let reviewsAndRatingsLbl: UILabel = {
+    fileprivate let reviewsAndRatingsLbl: UILabel = {
         let lbl = UILabel(text: "Reviews & Ratings", font: .boldSystemFont(ofSize: 22))
         
         return lbl

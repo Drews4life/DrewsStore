@@ -41,7 +41,6 @@ class ApplicationFullscreenViewController: UIViewController, UITableViewDelegate
         } else if scrollView.contentOffset.y < 160 && !isPreviewHidden {
             animatePreview(hide: true)
         }
-        print(scrollView.contentOffset.y)
     }
     
     override func viewDidLoad() {
@@ -51,6 +50,7 @@ class ApplicationFullscreenViewController: UIViewController, UITableViewDelegate
         tableView.fillSuperview()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.layer.cornerRadius = 18
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
@@ -63,7 +63,7 @@ class ApplicationFullscreenViewController: UIViewController, UITableViewDelegate
         setupPreviewView()
     }
     
-    private func setupPreviewView() {
+    fileprivate func setupPreviewView() {
         view.addSubview(smallPreviewView)
         
         let bottomPadding = UIApplication.shared.statusBarFrame.height
@@ -112,7 +112,7 @@ class ApplicationFullscreenViewController: UIViewController, UITableViewDelegate
         smallPreviewView.alpha = 1
     }
     
-    private func animatePreview(hide: Bool = false) {
+    fileprivate func animatePreview(hide: Bool = false) {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             self.smallPreviewView.transform = hide ? CGAffineTransform(translationX: 0, y: 120) : .identity
         }, completion: { _ in
@@ -120,7 +120,7 @@ class ApplicationFullscreenViewController: UIViewController, UITableViewDelegate
         })
     }
     
-    @objc private func dismissView(button: UIButton) {
+    @objc fileprivate func dismissView(button: UIButton) {
         button.isHidden = true
         didDismiss?()
     }

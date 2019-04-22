@@ -28,19 +28,19 @@ class ApplicationRowCell: UICollectionViewCell {
         return img
     }()
     
-    private let appNameLbl: UILabel = {
+    fileprivate let appNameLbl: UILabel = {
         let lbl = UILabel(text: "App name", font: .systemFont(ofSize: 19))
         
         return lbl
     }()
     
-    private let companyNameLbl: UILabel = {
+    fileprivate let companyNameLbl: UILabel = {
         let lbl = UILabel(text: "Company name", font: .systemFont(ofSize: 13))
         
         return lbl
     }()
     
-    private let getAppBtn: UIButton = {
+    fileprivate let getAppBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("GET", for: .normal)
         btn.titleLabel?.font = .boldSystemFont(ofSize: 15)

@@ -15,7 +15,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
     var applicationFullscreenOffset: CGFloat = 0
     var anchoredConstraints: AnchoredConstraints?
     
-    private let activityIndicator: UIActivityIndicatorView = {
+    fileprivate let activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .whiteLarge)
         activity.color = .darkGray
         activity.hidesWhenStopped = true
@@ -24,9 +24,9 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         return activity
     }()
     
-    private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+    fileprivate let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
-    private var items = [TodayItem]()
+    fileprivate var items = [TodayItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         tabBarController?.tabBar.superview?.setNeedsLayout()
     }
     
-    private func fetchData() {
+    fileprivate func fetchData() {
         let group = DispatchGroup()
         
         var topPaidGroup: ApplicationGroup?
@@ -108,7 +108,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         return 32
     }
     
-    private func showFullscreenDailyList(_ indexPath: IndexPath) {
+    fileprivate func showFullscreenDailyList(_ indexPath: IndexPath) {
         let fullscreenVC = TodayMultipleApplicationsController(mode: .fullscreen)
         fullscreenVC.results = items[indexPath.row].applications
         
@@ -116,7 +116,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         
     }
     
-    private func beginFullscreenVCAnimation() {
+    fileprivate func beginFullscreenVCAnimation() {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             
             self.blurEffectView.alpha = 1
@@ -138,13 +138,13 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         }, completion: nil)
     }
     
-    private func showSingleAppFullscreen(_ indexPath: IndexPath) {
+    fileprivate func showSingleAppFullscreen(_ indexPath: IndexPath) {
         setupSingleFullscreenController(indexPath)
         setupSingleFullscreenControllersPosition(indexPath)
         beginFullscreenVCAnimation()
     }
     
-    private func setupSingleFullscreenController(_ indexPath: IndexPath) {
+    fileprivate func setupSingleFullscreenController(_ indexPath: IndexPath) {
         let applicationFullscreenVC = ApplicationFullscreenViewController()
         applicationFullscreenVC.todayItem = items[indexPath.row]
         applicationFullscreenVC.didDismiss = { [weak self] in
@@ -164,7 +164,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         return true
     }
     
-    private func setupSingleFullscreenControllersPosition(_ indexPath: IndexPath) {
+    fileprivate func setupSingleFullscreenControllersPosition(_ indexPath: IndexPath) {
         let singleFullscreenView = self.applicationFullScreenController.view ?? UIView()
     
         singleFullscreenView.layer.cornerRadius = 16
@@ -184,7 +184,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
     
     }
     
-    @objc private func handleDragging(gesture: UIPanGestureRecognizer) {
+    @objc fileprivate func handleDragging(gesture: UIPanGestureRecognizer) {
         
         if gesture.state == .began {
             applicationFullscreenOffset = self.applicationFullScreenController.tableView.contentOffset.y
@@ -223,7 +223,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         }
     }
     
-    @objc private func dismissDetail() {
+    @objc fileprivate func dismissDetail() {
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             
@@ -271,7 +271,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         return cell
     }
     
-    @objc private func handleMultipleAppsTap(gesture: UIGestureRecognizer) {
+    @objc fileprivate func handleMultipleAppsTap(gesture: UIGestureRecognizer) {
         let collectionView = gesture.view
         var superview = collectionView?.superview
         

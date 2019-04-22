@@ -19,14 +19,14 @@ class ApplicationHeaderCell: UICollectionViewCell {
         }
     }
     
-    private let companyLbl: UILabel = {
+    fileprivate let companyLbl: UILabel = {
         let lbl = UILabel(text: "Company", font: .boldSystemFont(ofSize: 12))
         lbl.textColor = #colorLiteral(red: 0.3266413212, green: 0.4215201139, blue: 0.7752227187, alpha: 1)
         
         return lbl
     }()
     
-    private let titleLbl: UILabel = {
+    fileprivate let titleLbl: UILabel = {
         let lbl = UILabel(text: "Placeholder title, life is great!", font: .systemFont(ofSize: 18))
 //        lbl.numberOfLines = 1
         lbl.minimumScaleFactor = 12
@@ -34,7 +34,7 @@ class ApplicationHeaderCell: UICollectionViewCell {
         return lbl
     }()
     
-    private let frontImageView: UIImageView = {
+    fileprivate let frontImageView: UIImageView = {
         let img = UIImageView(cornerRadius: 8)
 //        img.constrainWidth(constant: 64)
 //        img.constrainHeight(constant: 200)

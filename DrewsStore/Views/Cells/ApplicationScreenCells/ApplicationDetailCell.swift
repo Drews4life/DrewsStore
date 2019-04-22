@@ -26,7 +26,7 @@ class ApplicationDetailCell: UICollectionViewCell {
         }
     }
     
-    private let applicationIconImageView: UIImageView = {
+    fileprivate let applicationIconImageView: UIImageView = {
         let img = UIImageView(cornerRadius: 12)
         img.constrainWidth(constant: 140)
         img.constrainHeight(constant: 140)
@@ -34,14 +34,14 @@ class ApplicationDetailCell: UICollectionViewCell {
         return img
     }()
     
-    private let nameLbl: UILabel = {
+    fileprivate let nameLbl: UILabel = {
         let lbl = UILabel(text: "App name", font: .boldSystemFont(ofSize: 18))
         lbl.numberOfLines = 2
         
         return lbl
     }()
     
-    private let priceButton: UIButton = {
+    fileprivate let priceButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("0.99$", for: .normal)
         btn.backgroundColor = #colorLiteral(red: 0.08411604911, green: 0.4194744825, blue: 0.9397012591, alpha: 1)
@@ -54,13 +54,13 @@ class ApplicationDetailCell: UICollectionViewCell {
         return btn
     }()
     
-    private let latestUpdatesLbl: UILabel = {
+    fileprivate let latestUpdatesLbl: UILabel = {
         let lbl = UILabel(text: "What's New", font: .boldSystemFont(ofSize: 19))
         
         return lbl
     }()
     
-    private let releaseNotesLbl: UILabel = {
+    fileprivate let releaseNotesLbl: UILabel = {
         let lbl = UILabel(text: "Release notes label", font: .systemFont(ofSize: 14))
         lbl.numberOfLines = 0
         
